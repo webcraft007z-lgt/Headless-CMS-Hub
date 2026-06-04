@@ -2,7 +2,7 @@
 
 A premium dark-mode agency portfolio landing page for a high-end web development studio. Built with semantic HTML5, CSS3, and vanilla JavaScript.
 
-## 🚀 Features
+##  Features
 
 - Fully responsive design (mobile, tablet, desktop)
 - Functional navigation bar with smooth scroll to sections
@@ -12,7 +12,7 @@ A premium dark-mode agency portfolio landing page for a high-end web development
 - Trusted by client logos
 - Clean, modern dark theme — no unnecessary stickers or ornaments
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 - HTML5
 - CSS3 (Flexbox, Grid, CSS variables, smooth scroll behavior)
@@ -20,4 +20,4 @@ A premium dark-mode agency portfolio landing page for a high-end web development
 - Google Fonts (Inter + Space Grotesk)
 - Font Awesome 6 (minimal icons)
 
-## 📁 Project Structure
+##  Project Structure
