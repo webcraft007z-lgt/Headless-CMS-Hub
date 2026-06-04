@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>NODECRAFT — Digital Engineering Studio</title>
+    <!-- Google Fonts: Inter + Space Grotesk for premium touch -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (minimal icons, no stickers) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #05050A;
+            font-family: 'Inter', sans-serif;
+            color: #EAEAEF;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* premium dark palette – no floating orbs, no stickers */
+        :root {
+            --bg-deep: #05050A;
+            --bg-elevated: #0C0C14;
+            --border-subtle: #1E1E2A;
+            --accent-primary: #3B82F6;
+            --accent-glow: rgba(59,130,246,0.2);
+            --text-muted: #9CA3AF;
+            --card-bg: #0F0F18;
+            --transition: all 0.25s ease;
+        }
+
+        /* utility classes */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* typography */
+        h1, h2, h3, h4, .logo, .nav-links a, .btn {
+            font-family: 'Space Grotesk', monospace;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+        }
+
+        .section-label {
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent-primary);
+            font-weight: 500;
+            margin-bottom: 1rem;
+            display: inline-block;
+            border-left: 3px solid var(--accent-primary);
+            padding-left: 0.75rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        /* header / nav */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.75rem 0;
+            border-bottom: 1px solid var(--border-subtle);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #FFFFFF 0%, #A5B4FC 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .btn-outline-light {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 0.6rem 1.3rem;
+            border-radius: 2rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+            color: white;
+        }
+
+        .btn-outline-light:hover {
+            border-color: var(--accent-primary);
+            background: rgba(59,130,246,0.1);
+        }
+
+        .btn-primary {
+            background: var(--accent-primary);
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 2.5rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 12px rgba(59,130,246,0.2);
+        }
+
+        .btn-primary:hover {
+            background: #2563EB;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(59,130,246,0.3);
+        }
+
+        /* hero section */
+        .hero {
+            padding: 5rem 0 4rem 0;
+        }
+
+        .hero-tag {
+            font-size: 0.9rem;
+            color: var(--accent-primary);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1.2;
+            max-width: 850px;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #FFFFFF, #CBD5E1);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        /* trusted by */
+        .trusted-section {
+            padding: 2rem 0 3rem 0;
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+            margin: 1rem 0;
+        }
+
+        .trusted-title {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .logos-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-item {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #6B7280;
+            letter-spacing: -0.02em;
+            transition: var(--transition);
+            font-family: 'Space Grotesk', monospace;
+        }
+
+        .logo-item:hover {
+            color: #CBD5E1;
+        }
+
+        /* selected work cards */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0 3rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-subtle);
+            border-radius: 1.5rem;
+            padding: 1.8rem;
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            border-color: rgba(59,130,246,0.4);
+            transform: translateY(-5px);
+            background: #11111C;
+        }
+
+        .project-number {
+            font-size: 0.8rem;
+            color: var(--accent-primary);
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+        }
+
+        .project-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-tagline {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 1.2rem;
+            border-left: 2px solid var(--accent-primary);
+            padding-left: 0.8rem;
+        }
+
+        .project-desc {
+            color: #B9C0D4;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .metrics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 1.2rem;
+        }
+
+        .metric {
+            background: rgba(59,130,246,0.08);
+            padding: 0.3rem 0.8rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #A5B4FC;
+        }
+
+        .metric strong {
+            color: white;
+            font-weight: 700;
+        }
+
+        /* process section */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.8rem;
+            margin: 2.5rem 0;
+        }
+
+        .process-step {
+            background: rgba(15,15,24,0.6);
+            border-radius: 1.2rem;
+            padding: 1.5rem;
+            border: 1px solid var(--border-subtle);
+            transition: var(--transition);
+        }
+
+        .process-step:hover {
+            border-color: var(--accent-primary);
+            background: #0F0F18;
+        }
+
+        .step-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: rgba(59,130,246,0.3);
+            margin-bottom: 0.75rem;
+            font-family: 'Space Grotesk', monospace;
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+        }
+
+        .step-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* quality banner */
+        .quality-banner {
+            background: linear-gradient(135deg, #0A0A12 0%, #11111C 100%);
+            border-radius: 2rem;
+            padding: 2.5rem;
+            text-align: center;
+            margin: 3rem 0 2rem;
+            border: 1px solid rgba(59,130,246,0.2);
+        }
+
+        .quality-banner h3 {
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .quality-banner p {
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        /* about, services, insights sections */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .info-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-subtle);
+            border-radius: 1.5rem;
+            padding: 1.8rem;
+            transition: var(--transition);
+        }
+        .info-card:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-3px);
+        }
+        .info-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        .info-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: #0C0C14;
+            border: 1px solid var(--border-subtle);
+            border-radius: 1.5rem;
+            max-width: 450px;
+            width: 90%;
+            padding: 2rem;
+            position: relative;
+        }
+        .modal-content h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+        }
+        .modal-content input, .modal-content textarea {
+            width: 100%;
+            background: #1A1A24;
+            border: 1px solid var(--border-subtle);
+            border-radius: 0.8rem;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            color: white;
+            font-family: 'Inter', sans-serif;
+        }
+        .modal-content button {
+            width: 100%;
+        }
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        /* footer */
+        .footer {
+            border-top: 1px solid var(--border-subtle);
+            padding: 2.5rem 0;
+            margin-top: 4rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1.5rem;
+        }
+
+        .footer-copyright {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        /* responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .nav-links {
+                width: 100%;
+                justify-content: space-between;
+                gap: 1rem;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            h2 {
+                font-size: 1.8rem;
+            }
+            .logos-grid {
+                justify-content: center;
+                gap: 1.8rem;
+            }
+            .process-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .project-title {
+                font-size: 1.3rem;
+            }
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo" id="logoHome">NODECRAFT</div>
+        <div class="nav-links">
+            <a href="#work-section">Work</a>
+            <a href="#process-section">Process</a>
+            <a href="#about-section">About</a>
+            <a href="#services-section">Services</a>
+            <a href="#insights-section">Insights</a>
+            <button class="btn-outline-light" id="consultNavBtn">Book a Consultation</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-tag">// DIGITAL ENGINEERING STUDIO</div>
+        <h1>We Build High-Performance Digital Tools, Not Just Websites.</h1>
+        <p class="hero-description">
+            We partner with ambitious brands to design and build scalable, fast, and future-ready digital experiences.
+        </p>
+        <button class="btn-primary" id="heroConsultBtn">
+            <i class="fas fa-arrow-right"></i> Book a Consultation
+        </button>
+    </section>
+
+    <!-- Trusted by -->
+    <div class="trusted-section">
+        <div class="trusted-title">TRUSTED BY</div>
+        <div class="logos-grid">
+            <span class="logo-item">planq</span>
+            <span class="logo-item">Orbit</span>
+            <span class="logo-item">LUMEN</span>
+            <span class="logo-item">MAVEN</span>
+            <span class="logo-item">Hexa</span>
+        </div>
+    </div>
+
+    <!-- SELECTED WORK section with id -->
+    <section id="work-section" style="margin: 4rem 0 2rem;">
+        <span class="section-label">// SELECTED WORK</span>
+        <h2>Engineered for impact.<br>Measurable excellence.</h2>
+
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-number">01</div>
+                <div class="project-title">Orbit Analytics</div>
+                <div class="project-tagline">Real-time insights platform for modern teams.</div>
+                <p class="project-desc">Unified analytics dashboard that processes millions of events with sub‑second latency.</p>
+                <div class="metrics">
+                    <span class="metric"><strong>Lighthouse</strong> 100/100</span>
+                    <span class="metric"><strong>Performance</strong> 98</span>
+                    <span class="metric"><strong>Accessibility</strong> 100</span>
+                    <span class="metric"><strong>SEO</strong> 100</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-number">02</div>
+                <div class="project-title">Lumen Commerce</div>
+                <div class="project-tagline">Headless commerce built for scale.</div>
+                <p class="project-desc">Elevated essentials — enterprise-grade composable commerce with global reach.</p>
+                <div class="metrics">
+                    <span class="metric"><strong>Lighthouse</strong> 100/100</span>
+                    <span class="metric"><strong>Performance</strong> 99</span>
+                    <span class="metric"><strong>Accessibility</strong> 100</span>
+                    <span class="metric"><strong>SEO</strong> 97</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-number">03</div>
+                <div class="project-title">Planq Finance</div>
+                <div class="project-tagline">Modern banking infrastructure for the future.</div>
+                <p class="project-desc">Banking for what's next — secure, modular and blazing fast financial APIs.</p>
+                <div class="metrics">
+                    <span class="metric"><strong>Lighthouse</strong> 100/100</span>
+                    <span class="metric"><strong>Performance</strong> 100</span>
+                    <span class="metric"><strong>Accessibility</strong> 98</span>
+                    <span class="metric"><strong>SEO</strong> 100</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- OUR PROCESS section -->
+    <section id="process-section" style="margin: 4rem 0 2rem;">
+        <span class="section-label">// OUR PROCESS</span>
+        <h2>A Clear Process.<br>Exceptional Results.</h2>
+        <p style="color: #9CA3AF; max-width: 600px; margin-bottom: 2rem;">We follow a proven process that keeps projects focused, transparent, and delivers outcomes that matter.</p>
+        <div class="process-grid">
+            <div class="process-step"><div class="step-number">01</div><div class="step-title">Onboard</div><div class="step-desc">We get to know your business, goals, and users to build the right plan from day one.</div></div>
+            <div class="process-step"><div class="step-number">02</div><div class="step-title">Design</div><div class="step-desc">We craft intuitive, high-fidelity designs that blend function with aesthetics.</div></div>
+            <div class="process-step"><div class="step-number">03</div><div class="step-title">Develop</div><div class="step-desc">We build performant, scalable solutions using modern tech and clean code.</div></div>
+            <div class="process-step"><div class="step-number">04</div><div class="step-title">Launch</div><div class="step-desc">We ship, optimize, and support to ensure a smooth launch and long-term success.</div></div>
+            <div class="process-step"><div class="step-number">05</div><div class="step-title">Optimize</div><div class="step-desc">Continuous improvement, analytics-driven refinements, and future-ready iterations.</div></div>
+        </div>
+    </section>
+
+    <!-- ABOUT section -->
+    <section id="about-section" style="margin: 4rem 0 2rem;">
+        <span class="section-label">// ABOUT US</span>
+        <h2>Deep expertise,<br>human-centered approach.</h2>
+        <div class="info-grid">
+            <div class="info-card"><h3>Our Story</h3><p>Founded by engineers and designers, NODECRAFT exists to bridge the gap between strategy and execution. We believe in code that empowers, designs that inspire.</p></div>
+            <div class="info-card"><h3>Core Values</h3><p>Transparency, craftsmanship, and relentless improvement. We treat your goals as our own and deliver measurable outcomes.</p></div>
+            <div class="info-card"><h3>The Team</h3><p>Senior architects, full-stack developers, and product strategists — united by a passion for high-performance digital engineering.</p></div>
+        </div>
+    </section>
+
+    <!-- SERVICES section -->
+    <section id="services-section" style="margin: 4rem 0 2rem;">
+        <span class="section-label">// SERVICES</span>
+        <h2>What we deliver.</h2>
+        <div class="info-grid">
+            <div class="info-card"><h3>Custom Web Dev</h3><p>Scalable, future-proof platforms using modern frameworks and headless architectures.</p></div>
+            <div class="info-card"><h3>Analytics & Insights</h3><p>Real-time dashboards, data visualization, and performance tracking systems.</p></div>
+            <div class="info-card"><h3>Headless Commerce</h3><p>Enterprise-level e‑commerce solutions with unmatched speed and flexibility.</p></div>
+            <div class="info-card"><h3>Design Systems</h3><p>Component libraries and UI kits that ensure consistency at scale.</p></div>
+        </div>
+    </section>
+
+    <!-- INSIGHTS section -->
+    <section id="insights-section" style="margin: 4rem 0 2rem;">
+        <span class="section-label">// INSIGHTS</span>
+        <h2>Ideas & perspectives.</h2>
+        <div class="info-grid">
+            <div class="info-card"><h3>Why performance matters</h3><p>How Core Web Vitals impact user engagement and business growth — a deep dive.</p></div>
+            <div class="info-card"><h3>The future of headless</h3><p>Composable architecture trends and why 2025 is the year of modular content.</p></div>
+            <div class="info-card"><h3>Accessibility as standard</h3><p>Building inclusive digital products that don't compromise on design or speed.</p></div>
+        </div>
+    </section>
+
+    <!-- Quality Banner -->
+    <div class="quality-banner">
+        <h3>Quality. Performance. Impact.</h3>
+        <p>Every solution is engineered for speed, accessibility, and lasting value.</p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-copyright">
+            © 2024 Nodcraft Studio. All rights reserved.
+        </div>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">LinkedIn</a>
+            <a href="#">X</a>
+        </div>
+    </footer>
+</div>
+
+<!-- Consultation Modal -->
+<div id="consultModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" id="closeModalBtn">&times;</span>
+        <h3>Request a consultation</h3>
+        <p style="margin-bottom: 1rem; color: #9CA3AF;">Tell us about your project — we'll respond within 24h.</p>
+        <input type="text" placeholder="Full name" id="modalName">
+        <input type="email" placeholder="Email address" id="modalEmail">
+        <textarea rows="3" placeholder="Brief description of your needs" id="modalMessage"></textarea>
+        <button class="btn-primary" id="submitConsultBtn" style="width:100%; justify-content:center;">Send request</button>
+    </div>
+</div>
+
+<script>
+    // ----- FUNCTIONAL NAVBAR: smooth scroll to sections -----
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const logo = document.getElementById('logoHome');
+
+    // Helper: scroll to element by ID
+    function scrollToSection(sectionId) {
+        const section = document.getElementById(sectionId);
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else if (sectionId === 'home') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }
+
+    // Add click listeners to nav links (excluding the button)
+    navLinks.forEach(link => {
+        // skip the button (has class btn-outline-light or no hash)
+        if (link.classList && link.classList.contains('btn-outline-light')) return;
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const href = link.getAttribute('href');
+            if (href && href.startsWith('#')) {
+                const targetId = href.substring(1);
+                scrollToSection(targetId);
+            }
+        });
+    });
+
+    // Logo click scrolls to top
+    logo.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ----- MODAL FUNCTIONALITY (Book a Consultation) -----
+    const modal = document.getElementById('consultModal');
+    const consultBtns = document.querySelectorAll('#heroConsultBtn, #consultNavBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    
+    function openModal() {
+        modal.style.display = 'flex';
+    }
+    function closeModal() {
+        modal.style.display = 'none';
+    }
+    consultBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal();
+        });
+    });
+    closeModalBtn.addEventListener('click', closeModal);
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+
+    // mock submit
+    const submitBtn = document.getElementById('submitConsultBtn');
+    submitBtn.addEventListener('click', () => {
+        const name = document.getElementById('modalName').value;
+        if (name.trim() === "") {
+            alert("Please enter your name.");
+            return;
+        }
+        alert(`Thank you ${name}, your consultation request has been sent. We'll reach out soon.`);
+        closeModal();
+        // clear fields
+        document.getElementById('modalName').value = '';
+        document.getElementById('modalEmail').value = '';
+        document.getElementById('modalMessage').value = '';
+    });
+</script>
+</body>
+</html>
